@@ -1,0 +1,133 @@
+﻿<Window x:Class="Triggers.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Triggers"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    
+    <!--프로퍼티 트리거(Property Trigger)
+    TriggerBase의 자식 클래스중 가장 일반적인 클래스는 특정 프로퍼티의 변화(어떤 값을 
+    가졌을 때)에 내부에 정의한 Setter 컬렉션이 실행되는 트리거 이다-->
+    <!--<Grid>
+        <TextBlock Name="tblk1" Text="Hello, WPF world!" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>    
+            <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="Green"> </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                            <Setter Property="TextDecorations" Value="Underline" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>-->
+
+
+    <!--최초 화면이 로딩될 때 Button 및 TextBlock의 전경색은빨강, TextBlock의 Text 속성은 
+    “Hello WPF!” 라는 값을 가진다. 두 컨트롤 모두 마우스가 진입을 하면 프로퍼티 
+    트리거가 동작을 하는데 Button은 전경색을 파랑으로 변경하고, 
+    TextBlock은 전경색이 파랑으로, Text 속성은 “진입했습니다.”로 변경 된다.-->
+    <!--<Window.Resources>
+        <Style x:Key = "MyStyle">
+            <Setter Property = "Control.Foreground" Value = "Red" />
+            <Setter Property = "TextBlock.Text" Value = "Hello WPF!" />
+            <Style.Triggers>
+                <Trigger Property = "Control.IsMouseOver" Value ="True">
+                    <Setter Property = "Control.Foreground" Value ="Blue" />
+                    <Setter Property="TextBlock.Text" Value="진입했습니다."/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <Button Width = "100" Height = "70" Style = "{StaticResource MyStyle}" Content = "Trigger"/>
+        <TextBlock Style = "{StaticResource MyStyle}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </StackPanel>-->
+
+
+
+    <!--Trigger 엘리먼트가 같은 프로퍼티를 두번 설정하면 뒤 Trigger 엘리먼트는 이전의것을 
+    오버라이딩 한다. 아래 예제에서 두 Trigger 프로퍼티의 순서를 바꾸면 전경색은 
+    빨강으로 바뀔 수 없다. IsPressed가 true이면 IsMouseOver 역시 true이기 때문이다. 
+    버튼에 마우스를 누르려면 버튼 안으로 마우스가 진입해야 하므로 항상
+    IsMouseOver 상태가 된다. (순서상 재정의 된 마지막의 것이 실행 되므로 이벤트가
+    겹치는 경우 나중에 정의된 것이 실행된다는 뜻이다.)-->
+    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style x:Key="normal">
+                <Setter Property="Control.FontSize" Value="24" />
+                <Setter Property="Control.HorizontalAlignment" Value="Center" />
+                <Setter Property="Control.Margin" Value="24" />
+                <EventSetter Event="Button.Click" Handler="ButtonOnClick" />
+                <Style.Triggers>
+                    <Trigger Property="Control.IsMouseOver" Value="true">
+                        <Setter Property="Control.FontStyle" Value="Italic"/>
+                        <Setter Property="Control.Foreground" Value="Blue"/>
+                    </Trigger>
+                    <Trigger Property="Button.IsPressed" Value="true">
+                        <Setter Property="Control.Foreground" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Resources>
+        <Button Style="{StaticResource normal}">
+            Button Number 1
+        </Button>
+        <Button Style="{StaticResource normal}">
+            Button Number 2
+        </Button>
+        <Button Style="{StaticResource normal}">
+            Button Number 3
+        </Button>
+    </StackPanel>-->
+
+
+
+    <!--순서를 정의 하기가 어려운 경우 MultiTrigger를 고려하면 되는데 MultiTrigger는 2개나
+    그이상의 조건이 만족할 때 발생된다는 것을 제외하면 Trigger와 유사하다.-->
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style x:Key="normal">
+                <Setter Property="Control.FontSize" Value="24" />
+                <Setter Property="Control.HorizontalAlignment" Value="Center" />
+                <Setter Property="Control.Margin" Value="24" />
+
+                <EventSetter Event="Button.Click" Handler="ButtonOnClick" />
+
+                <Style.Triggers>
+                    <Trigger Property="Button.IsPressed" Value="True">
+                        <Setter Property="Control.Foreground" Value="Red"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="Button.IsPressed" 
+                                       Value="false"/>
+                            <Condition Property="Control.IsMouseOver" 
+                                       Value="true"/>
+                        </MultiTrigger.Conditions>
+
+                        <Setter Property="Control.FontStyle" Value="Italic"/>
+                        <Setter Property="Control.Foreground" Value="Blue"/>
+                    </MultiTrigger>
+
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Resources>
+
+        <Button Style="{StaticResource normal}">
+            Button Number 1
+        </Button>
+        <Button Style="{StaticResource normal}">
+            Button Number 2
+        </Button>
+        <Button Style="{StaticResource normal}">
+            Button Number 3
+        </Button>
+    </StackPanel>
+
+</Window>

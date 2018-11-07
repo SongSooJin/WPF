@@ -1,0 +1,239 @@
+﻿<Window x:Class="WPFStyle.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStyle"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    
+    <!--로컬요소를 위한 Style 요소를 정의하는 것도 가능,버튼의 전경색을 Button 요소, Setter를 이
+용하여 두번 정의했는데 Button 요소에서 정의한 것이 우선적으로 적용된다.-->
+    <!--<Grid>
+        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Pink">
+            <Button.Style>
+                <Style>
+                    <Setter Property="Button.FontSize" Value="16pt"/>
+                    <Setter Property="Button.FontWeight" Value="Bold"/>
+                    <Setter Property="Button.FontFamily" Value="Constantia"/>
+                    <Setter Property="Control.Foreground" Value="Red" />
+                </Style>
+            </Button.Style>
+            Button Test
+        </Button>
+    </Grid>-->
+    
+    
+    
+    <!--아래 예문은 Button과 TextBlock에서 Style을 공유했다-->
+    <!--<StackPanel>
+            <StackPanel.Resources>
+                <Style x:Key="normal">
+                    <Setter Property="Control.FontSize" Value="22" />
+                    <Setter Property="Control.Foreground" Value="Pink" />
+                    <Setter Property="Control.HorizontalAlignment" Value="Center" />
+                    <Setter Property="Control.Margin" Value="30" />
+                    <Setter Property="Control.Padding" Value="20,10,20,10" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Style="{StaticResource normal}">
+                버튼 테스트 1
+            </Button>
+
+            <TextBlock Style="{StaticResource normal}">
+                텍스트 블록 테스트
+            </TextBlock>
+
+            <Button Style="{StaticResource normal}">
+                버튼 테스트2
+            </Button>
+        </StackPanel>-->
+
+    
+    
+    <!--요소에 적용되는 Style은 비주얼 트리를 타고 올라가다 최초로 만나는 Style이 적용된다.-->
+    <!--<Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}" x:Key="mystyle">
+                <Setter Property="Control.FontSize" Value="12"/>
+                <Setter Property="Control.Foreground" Value="Red"/>
+            </Style>
+        </Grid.Resources>
+
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}" x:Key="mystyle">
+                    <Setter Property="Control.Foreground" Value="BlueViolet"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Style="{StaticResource mystyle}">
+                Button 1
+            </Button>
+            <Button Style="{StaticResource mystyle}">
+                Button 2
+            </Button>
+            <Button Style="{StaticResource mystyle}">
+                Button 3
+            </Button>
+        </StackPanel>
+    </Grid>-->
+
+    
+    
+    <!--TargetType을 사용하면 Setter 엘리먼트 내에서 프로퍼티 이름을 완전히 나열할 필요가 없다.-->
+    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Foreground" Value="Blue" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="Red" />
+            </Style>
+        </StackPanel.Resources>
+        
+        <Button>
+            Button 1
+        </Button>
+            <TextBlock>
+                TextBlock 1
+            </TextBlock>
+        <Button>
+            <TextBlock>
+                Button with TextBlock Content
+            </TextBlock>
+        </Button>   
+    </StackPanel>-->            <!--이미 만들어진 Style을 기반으로 약간의 프로퍼티 정의를 추가한 Style을 정의하는
+    것도 가능한데 이 경우 Style에서 기존 Style을 참조하기 위해 BasedOn 속성을 사용
+    할 수 있다.-->    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style x:Key="norbtn">
+                <Setter Property="Control.FontSize" Value="24" />
+                <Setter Property="Control.Foreground" Value="Blue" />
+                <Setter Property="Control.HorizontalAlignment" Value="Center" />
+                <Setter Property="Control.Margin" Value="24" />
+                <Setter Property="Control.Padding" Value="20, 10, 20, 10"/>
+            </Style>
+            <Style x:Key="hotbtn" BasedOn="{StaticResource norbtn}">
+                <Setter Property="Control.Foreground" Value="Red" />            </Style>
+        </StackPanel.Resources>
+        
+        <Button Style="{StaticResource norbtn}">
+            Button Number 1
+        </Button>
+        <Button Style="{StaticResource hotbtn}">
+            Button Number 2
+        </Button>
+        <Button Style="{StaticResource norbtn}">
+            Button Number 3
+        </Button>
+    </StackPanel>-->
+
+    
+    
+    <!--TargetType 속성을 가진 기존 스타일을 기본으로해서 정의하는 것도 가능하지만 조금     복잡해 진다.-->    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Control.FontSize" Value="24" />
+                <Setter Property="Control.Foreground" Value="Blue" />
+                <Setter Property="Control.HorizontalAlignment"Value="Center" />
+                <Setter Property="Control.Margin" Value="24" />
+            </Style>
+            --><!--두번째 정의하는 스타일은 충돌을 피하기 위해 x:Key 필요--><!--
+            <Style x:Key="hotbtn" TargetType="{x:Type Button}"
+                    BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Control.Foreground" Value="Red" />
+            </Style>
+        </StackPanel.Resources>
+        <Button>
+            Button Number 1
+        </Button>
+        <Button Style="{StaticResource hotbtn}">
+            Button Number 2
+        </Button>
+        <Button>
+            Button Number 3
+        </Button>
+    </StackPanel>-->
+    
+    
+
+    <!--TargetType을 사용하면 특정 타입 엘리먼트는 항상 특정 스타일을 가지며 클래스의
+계층과 일치하는 스타일의 계층을 다음과 같이 정의할 수 있다.-->
+    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Control}">
+                <Setter Property="Control.FontSize" Value="24" />
+                <Setter Property="Control.Foreground" Value="Blue" />
+                <Setter Property="Control.HorizontalAlignment"Value="Center" />
+                <Setter Property="Control.Margin" Value="24" />
+            </Style>
+            <Style TargetType="{x:Type Button}"
+ BasedOn="{StaticResource {x:Type Control}}">
+                <Setter Property="Control.Foreground" Value="Red" />
+            </Style>
+            <Style TargetType="{x:Type Label}"
+ BasedOn="{StaticResource {x:Type Control}}">
+                <Setter Property="Control.Foreground" Value="Green" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}"
+             BasedOn="{StaticResource {x:Type Control}}">
+            </Style>
+        </StackPanel.Resources>
+        <Button>
+            Button Control
+        </Button>
+        <Label>
+            Label Control
+        </Label>
+        <TextBox>
+            TextBox Control
+        </TextBox>
+    </StackPanel>-->            <!--아래 예문은 XAML에서 Setter 엘리먼트의 Value 속성을 데이터 바인딩 했다.-->    <!--<StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="{Binding ElementName=scroll, Path=Value}"/>
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="24" /> 
+            </Style>
+        </StackPanel.Resources>
+        <ScrollBar Name="scroll" Orientation="Horizontal" Margin="24" Minimum="11" Maximum="100" Value="24" />
+        <Button>
+            Button Number1
+        </Button>
+        <Button>
+            Button Number2
+        </Button>
+        <Button>
+            Button Number3
+        </Button>
+    </StackPanel>-->
+
+
+    <!--Setter가 Style의 자식중 대체로 이용 되지만 라우팅된 특정 이벤트의 이벤트핸들러
+    를 설정하기 위해서는 EventSetter 엘리먼트를 이용할 수 있는데 다수의 엘리먼트에
+    서 이벤트를 공유할 수 있다.-->
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="24" />
+            <EventSetter Event="Click" Handler="ButtonOnClick" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <Button>
+            Button Number1
+        </Button>
+        <Button>
+            Button Number2
+        </Button>
+        <Button>
+            Button Number3
+        </Button>
+    </StackPanel>
+</Window>
+        

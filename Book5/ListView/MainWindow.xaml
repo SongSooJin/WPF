@@ -1,0 +1,36 @@
+﻿<Window x:Class="ListView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListView"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!--<ListView Margin="10">
+            <ListViewItem>A ListView</ListViewItem>
+            <ListViewItem IsSelected="True">with several</ListViewItem>
+            <ListViewItem>items</ListViewItem>
+        </ListView>-->
+        <ListView Margin="10">
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="m6fqZwUl_400x400.jpg" Width="150"/>
+                    <TextBlock>Green</TextBlock>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="m6fqZwUl_400x400.jpg" Width="150"/>
+                    <TextBlock>Blue</TextBlock>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem IsSelected="True">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="m6fqZwUl_400x400.jpg" Width="150"/>
+                    <TextBlock>Red</TextBlock>
+                </StackPanel>
+            </ListViewItem>
+        </ListView>
+    </Grid>
+</Window>
